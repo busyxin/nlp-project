@@ -10,6 +10,7 @@ total_words_review = {"positive": 0, "negative": 0}
 ngrams = [{}, {}, {}]
 ourVocab = {}
 simpleVocab = [{}, {}, {}, {}]
+movieArray={}
 
 #======================================================================================
 # Tokenizer function
@@ -182,9 +183,6 @@ def test(testarray, vocab):
       ngrams[0][gram]["rank_positive"]= ngrams[0][gram]["prob_positive"]/ngrams[0][gram]["negative"]
       ngrams[0][gram]["rank_negative"]= ngrams[0][gram]["prob_negative"]/ngrams[0][gram]["positive"]
 
-#======================================================================================
-# Main function
-# Read titles and classify genres
 
 def split_files(filename, state):
   file= open(filename,"r")
@@ -208,12 +206,43 @@ def split_files(filename, state):
   f.close()
 
 
-split_files("data/train/movie_lines.txt", "train")
-split_files("data/test/movie_lines.txt", "test")
-split_files("data/train/movie_characters_metadata.txt", "train")
-split_files("data/test/movie_characters_metadata.txt", "test")
-split_files("data/train/movie_conversations.txt", "train")
-split_files("data/test/movie_conversations.txt", "test")
+def lines_movie(moviefile, titlefile):
+  linesfile= open(moviefile,"r")
+  movie_lines = linesfile.readlines()
+  titlefile= open(titlefile,"r")
+  title_lines = titlefile.readlines()
+  for line1 in title_lines:
+      l=line1.replace("\n", "").split(" +++$+++ ")
+      movieArray[l[0]]={}
+      movieArray[l[0]]["title"]=l[1]
+      movieArray[l[0]]["genre"]=l[5]
+
+  for line2 in movie_lines:
+      l=line2.replace("\n", "").split(" +++$+++ ")
+      new_l= tokenizer(l[4])
+      if "script" in movieArray[l[2]]:
+        movieArray[l[2]]["script"].append(new_l)
+      else:
+        movieArray[l[2]]["script"]=[new_l]
+
+  linesfile.close()
+  titlefile.close()
+  
+
+#======================================================================================
+# Main function
+# Read titles and classify genres
+
+
+lines_movie("data/train/movie_lines.txt", "data/train/movie_titles_metadata.txt")
+print(movieArray)
+
+# split_files("data/train/movie_lines.txt", "train")
+# split_files("data/test/movie_lines.txt", "test")
+# split_files("data/train/movie_characters_metadata.txt", "train")
+# split_files("data/test/movie_characters_metadata.txt", "test")
+# split_files("data/train/movie_conversations.txt", "train")
+# split_files("data/test/movie_conversations.txt", "test")
 
 
 
