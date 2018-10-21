@@ -1,0 +1,797 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Movie Genre Classification by Script Dialog Analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{film-genre-classification-by-script-dialog-analysis}{%
+\section{Film Genre Classification by Script Dialog
+Analysis}\label{film-genre-classification-by-script-dialog-analysis}}
+
+    The dataset compiled by Cristian Danescu-Niculescu-Mizil, assistant
+professor at the department of information science of the Cornell
+University, offers structured data reflecting the dialog corpus of 617
+movies, additional meta information about them, such as title, genres,
+IMDB votes and rating, as well as details from every character
+intervening in the movie: name, gender, character's importance according
+to the position in the credits. This dataset can be found here:
+http://www.cs.cornell.edu/\textasciitilde{}cristian/Cornell\_Movie-Dialogs\_Corpus.html
+
+This data allows us to build a language model by processing the dialogs
+contained in the corpus, we hope to discern patterns that will allow us,
+for example, to predict the details of an unknown movie character given
+his or her lines in the script. Other possible applications would be
+classifying a new movie by genres by inputting the conversations. These
+are two possibilities derived from learning from the available corpus,
+if time allows it, we can even augment the existing data structure to
+infer more insights, i.e.~relationship between characters, etc..
+
+    \hypertarget{import-third-party-libraries}{%
+\subsubsection{Import third party
+libraries}\label{import-third-party-libraries}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{import} \PY{n+nn}{html2text}
+        \PY{k+kn}{from} \PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{request} \PY{k}{import} \PY{n}{urlopen} 
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfVectorizer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{MultinomialNB}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{multiclass} \PY{k}{import} \PY{n}{OneVsRestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{stopwords}
+        \PY{n}{stop\PYZus{}words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{stopwords}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{LinearSVC}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \hypertarget{transform-original-txt-files-into-csv}{%
+\subsubsection{Transform original txt files into
+CSV}\label{transform-original-txt-files-into-csv}}
+
+    The dataset offered by Cristian Cornell are 4 different txt files:
+\texttt{movie\_titles\_metadata.txt}, \texttt{movie\_lines.txt},
+\texttt{movie\_conversations.txt} and
+\texttt{movie\_characters\_metadata.txt}. To make it easier to work with
+the data, we will transform them into CSV files.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{csv\PYZus{}convert}\PY{p}{(}\PY{n}{filepath}\PY{p}{,} \PY{n}{header}\PY{p}{)}\PY{p}{:}
+            \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filepath}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                \PY{n}{lines} \PY{o}{=} \PY{n}{f}\PY{o}{.}\PY{n}{readlines}\PY{p}{(}\PY{p}{)}
+                \PY{n}{csv} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filepath}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{w+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{csv}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{header}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                
+                \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{lines}\PY{p}{:}
+                    \PY{n}{lineArray} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ +++\PYZdl{}+++ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                    
+                    \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LineIDs}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{header}\PY{p}{:}
+                        \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+                    
+                    \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Line}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{header}\PY{p}{:}
+                        \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+        
+                    \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie Title}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{header}\PY{p}{:}
+                        \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}
+                        
+                    \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Title}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{header}\PY{p}{:}
+                        \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}
+                        
+                    \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Genres}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{header}\PY{p}{:}
+                        \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{lineArray}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+                        
+                    \PY{n}{line} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{lineArray}\PY{p}{)}
+                    
+                    \PY{n}{csv}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{line}\PY{p}{)}
+                
+                \PY{n}{csv}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+            \PY{n}{f}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{header} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie Title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Relevance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{csv\PYZus{}convert}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{originals/movie\PYZus{}characters\PYZus{}metadata.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{p}{)}
+        
+        \PY{n}{header} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Char1 ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Char2 ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LineIDs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{csv\PYZus{}convert}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{originals/movie\PYZus{}conversations.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{p}{)}
+        
+        \PY{n}{header} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Characted ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Character Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Line}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{csv\PYZus{}convert}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{originals/movie\PYZus{}lines.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{p}{)}
+        
+        \PY{n}{header} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Release Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Votes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Genres}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{csv\PYZus{}convert}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{originals/movie\PYZus{}titles\PYZus{}metadata.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{data-analysis}{%
+\subsubsection{Data Analysis}\label{data-analysis}}
+
+    \hypertarget{characters-metadata}{%
+\paragraph{Characters Metadata}\label{characters-metadata}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{characters\PYZus{}meta} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{originals/movie\PYZus{}characters\PYZus{}metadata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latin\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{characters\PYZus{}meta}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} (9035, 6)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{characters\PYZus{}meta}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    ID      Name Movie ID                 Movie Title Gender Relevance
+        0  u0    BIANCA       m0  10 things i hate about you      f         4
+        1  u1     BRUCE       m0  10 things i hate about you      ?         ?
+        2  u2   CAMERON       m0  10 things i hate about you      m         3
+        3  u3  CHASTITY       m0  10 things i hate about you      ?         ?
+        4  u4      JOEY       m0  10 things i hate about you      m         6
+\end{Verbatim}
+            
+    \hypertarget{movie-conversations}{%
+\paragraph{Movie Conversations}\label{movie-conversations}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{movie\PYZus{}conversations} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{originals/movie\PYZus{}characters\PYZus{}metadata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latin\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{movie\PYZus{}conversations}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} (9035, 6)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{movie\PYZus{}conversations}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    ID      Name Movie ID                 Movie Title Gender Relevance
+        0  u0    BIANCA       m0  10 things i hate about you      f         4
+        1  u1     BRUCE       m0  10 things i hate about you      ?         ?
+        2  u2   CAMERON       m0  10 things i hate about you      m         3
+        3  u3  CHASTITY       m0  10 things i hate about you      ?         ?
+        4  u4      JOEY       m0  10 things i hate about you      m         6
+\end{Verbatim}
+            
+    \hypertarget{movie-lines}{%
+\paragraph{Movie Lines}\label{movie-lines}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{movie\PYZus{}lines} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{originals/movie\PYZus{}lines.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latin\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{movie\PYZus{}lines}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} (304713, 5)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{movie\PYZus{}lines}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}       ID Characted ID Movie ID Character Name          Line
+        0  L1045           u0       m0         BIANCA  They do not!
+        1  L1044           u2       m0        CAMERON   They do to!
+        2   L985           u0       m0         BIANCA    I hope so.
+        3   L984           u2       m0        CAMERON     She okay?
+        4   L925           u0       m0         BIANCA     Let's go.
+\end{Verbatim}
+            
+    \hypertarget{movie-metadata}{%
+\paragraph{Movie Metadata}\label{movie-metadata}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{movie\PYZus{}meta} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{originals/movie\PYZus{}titles\PYZus{}metadata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latin\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{movie\PYZus{}meta}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} (617, 6)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{movie\PYZus{}meta}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}    ID                       Title Release Year  Rating   Votes  \textbackslash{}
+         0  m0  10 things i hate about you         1999     6.9   62847   
+         1  m1  1492: conquest of paradise         1992     6.2   10421   
+         2  m2                  15 minutes         2001     6.1   25854   
+         3  m3       2001: a space odyssey         1968     8.4  163227   
+         4  m4                     48 hrs.         1982     6.9   22289   
+         
+                                                       Genres  
+         0                              ['comedy', 'romance']  
+         1     ['adventure', 'biography', 'drama', 'history']  
+         2           ['action', 'crime', 'drama', 'thriller']  
+         3                 ['adventure', 'mystery', 'sci-fi']  
+         4  ['action', 'comedy', 'crime', 'drama', 'thrill{\ldots}  
+\end{Verbatim}
+            
+    \hypertarget{genres-identification-and-frequency}{%
+\subsubsection{Genres identification and
+frequency}\label{genres-identification-and-frequency}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{movie\PYZus{}genres} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{movie\PYZus{}meta}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{current\PYZus{}genres} \PY{o}{=} \PY{n+nb}{eval}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Genres}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{current\PYZus{}genres}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{current\PYZus{}genres}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o+ow}{in} \PY{n}{movie\PYZus{}genres}\PY{p}{:}
+                     \PY{n}{movie\PYZus{}genres}\PY{p}{[}\PY{n}{current\PYZus{}genres}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{movie\PYZus{}genres}\PY{p}{[}\PY{n}{current\PYZus{}genres}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                     
+         \PY{n}{genres\PYZus{}stats} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{index}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{genre} \PY{o+ow}{in} \PY{n}{movie\PYZus{}genres}\PY{p}{:}
+             \PY{n}{genres\PYZus{}stats}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{index}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{genre}\PY{p}{)}
+             \PY{n}{genres\PYZus{}stats}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{movie\PYZus{}genres}\PY{p}{[}\PY{n}{genre}\PY{p}{]}\PY{p}{)}
+                     
+         \PY{n}{classes} \PY{o}{=} \PY{n}{genres\PYZus{}stats}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{index}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{genres\PYZus{}stats}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{index}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{genres\PYZus{}stats}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie genre frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{} of Occurrences}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} Text(0.5, 0, 'Genre')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{data-preparation}{%
+\subsection{Data preparation}\label{data-preparation}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Creating a Dataframe with only relevant fields: ID, Lines, Genres spreaded}
+         
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{classes}\PY{p}{:}
+             \PY{n}{label\PYZus{}array} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{genre\PYZus{}array} \PY{o+ow}{in} \PY{n}{movie\PYZus{}meta}\PY{o}{.}\PY{n}{Genres}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{label} \PY{o+ow}{in} \PY{n}{genre\PYZus{}array}\PY{p}{:}
+                     \PY{n}{label\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{label\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{n}{movie\PYZus{}meta}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{label\PYZus{}array}
+             
+         \PY{n}{line\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}} 
+         
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{movie\PYZus{}lines}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}    
+             \PY{k}{if} \PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o+ow}{in} \PY{n}{line\PYZus{}dict}\PY{p}{:}
+                 \PY{n}{line\PYZus{}dict}\PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{line\PYZus{}dict}\PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Line}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{line\PYZus{}dict}\PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Line}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{lines\PYZus{}array} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n}{line\PYZus{}dict}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{lines\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{value}\PY{p}{)}   
+             
+         \PY{n}{movie\PYZus{}dataframe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{movie\PYZus{}meta}\PY{o}{.}\PY{n}{ID}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lines}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{lines\PYZus{}array}
+         \PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{classes}\PY{p}{:}
+             \PY{n}{movie\PYZus{}dataframe}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{movie\PYZus{}meta}\PY{p}{[}\PY{n}{label}\PY{p}{]}
+         
+         
+         \PY{n}{movie\PYZus{}dataframe}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+             
+             
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    ID                                              Lines  comedy  romance  \textbackslash{}
+         0  m0  They do not! They do to! I hope so. She okay? {\ldots}       1        1   
+         1  m1  Can't be that far, I say.  Also, I don't like {\ldots}       0        0   
+         2  m2  Officers, there's your killer, do your duty, a{\ldots}       0        0   
+         3  m3  We're trying to get there. I hope we can. CONT{\ldots}       0        0   
+         4  m4  Great, just great. That we do. And we put air {\ldots}       1        0   
+         
+            adventure  biography  drama  history  action  crime     {\ldots}       western  \textbackslash{}
+         0          0          0      0        0       0      0     {\ldots}             0   
+         1          1          1      1        1       0      0     {\ldots}             0   
+         2          0          0      1        0       1      1     {\ldots}             0   
+         3          1          0      0        0       0      0     {\ldots}             0   
+         4          0          0      1        0       1      1     {\ldots}             0   
+         
+            war  adult  musical  animation  sport  family  short  film-noir  \textbackslash{}
+         0    0      0        0          0      0       0      0          0   
+         1    0      0        0          0      0       0      0          0   
+         2    0      0        0          0      0       0      0          0   
+         3    0      0        0          0      0       0      0          0   
+         4    0      0        0          0      0       0      0          0   
+         
+            documentary  
+         0            0  
+         1            0  
+         2            0  
+         3            0  
+         4            0  
+         
+         [5 rows x 26 columns]
+\end{Verbatim}
+            
+    \hypertarget{splitting-the-cornell-dataset-into-training-and-test-data}{%
+\subsection{Splitting the Cornell dataset into training and test
+data}\label{splitting-the-cornell-dataset-into-training-and-test-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{movie\PYZus{}dataframe}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.10}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{Lines}
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{Lines}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(555,)
+(62,)
+
+    \end{Verbatim}
+
+    \hypertarget{comparing-different-classifier-implementation-performance}{%
+\subsection{Comparing different classifier implementation
+performance:}\label{comparing-different-classifier-implementation-performance}}
+
+\hypertarget{naive-bayes-svc-and-logistic-regression}{%
+\subsection{Naive Bayes, SVC and Logistic
+Regression}\label{naive-bayes-svc-and-logistic-regression}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Define a pipeline combining a text feature extractor with multi lable classifier}
+         \PY{n}{NB\PYZus{}pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                         \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{stop\PYZus{}words}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                         \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneVsRestClassifier}\PY{p}{(}\PY{n}{MultinomialNB}\PY{p}{(}
+                             \PY{n}{fit\PYZus{}prior}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{class\PYZus{}prior}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{SVC\PYZus{}pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                         \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{stop\PYZus{}words}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                         \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneVsRestClassifier}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{LogReg\PYZus{}pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                         \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{stop\PYZus{}words}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                         \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneVsRestClassifier}\PY{p}{(}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{n}{scoreNB} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{scoreSVC} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{scoreLog} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Catch warnings from the Logistic Regression iterating beyong maxit}
+         \PY{k}{with} \PY{n}{warnings}\PY{o}{.}\PY{n}{catch\PYZus{}warnings}\PY{p}{(}\PY{n}{record}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{k}{as} \PY{n}{w}\PY{p}{:}
+         
+             \PY{k}{for} \PY{n}{category} \PY{o+ow}{in} \PY{n}{classes}\PY{p}{:}
+                 \PY{n}{NB\PYZus{}pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{prediction} \PY{o}{=} \PY{n}{NB\PYZus{}pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+                 \PY{n}{scoreNB}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{p}{,} \PY{n}{prediction}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{SVC\PYZus{}pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{prediction} \PY{o}{=} \PY{n}{SVC\PYZus{}pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+                 \PY{n}{scoreSVC}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{p}{,} \PY{n}{prediction}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{LogReg\PYZus{}pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{prediction} \PY{o}{=} \PY{n}{LogReg\PYZus{}pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+                 \PY{n}{scoreLog}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{p}{,} \PY{n}{prediction}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n}{score\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Movie Genre}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{classes}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Accuracy NB}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{scoreNB}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Accuracy SVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{scoreSVC}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Accuracy Log. Re.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{scoreLog}
+         \PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{score\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}     Movie Genre  Test Accuracy NB  Test Accuracy SVC  Test Accuracy Log. Re.
+         0        comedy          0.709677           0.758065                0.709677
+         1       romance          0.741935           0.774194                0.741935
+         2     adventure          0.870968           0.887097                0.870968
+         3     biography          0.967742           0.967742                0.967742
+         4         drama          0.564516           0.758065                0.741935
+         5       history          0.983871           0.983871                0.983871
+         6        action          0.806452           0.854839                0.806452
+         7         crime          0.838710           0.887097                0.838710
+         8      thriller          0.596774           0.854839                0.709677
+         9       mystery          0.790323           0.790323                0.790323
+         10       sci-fi          0.870968           0.903226                0.870968
+         11      fantasy          0.887097           0.919355                0.887097
+         12       horror          0.854839           0.887097                0.854839
+         13        music          0.951613           0.951613                0.951613
+         14      western          1.000000           1.000000                1.000000
+         15          war          0.919355           0.919355                0.919355
+         16        adult          1.000000           1.000000                1.000000
+         17      musical          0.983871           0.983871                0.983871
+         18    animation          1.000000           1.000000                1.000000
+         19        sport          1.000000           1.000000                1.000000
+         20       family          1.000000           1.000000                1.000000
+         21        short          0.983871           0.983871                0.983871
+         22    film-noir          1.000000           1.000000                1.000000
+         23  documentary          1.000000           1.000000                1.000000
+\end{Verbatim}
+            
+    \hypertarget{train-the-model-using-the-whole-dataset-and-svc}{%
+\subsection{Train the model using the whole dataset and
+SVC}\label{train-the-model-using-the-whole-dataset-and-svc}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{SVC\PYZus{}trained\PYZus{}pipelines} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training model: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{flush}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{category} \PY{o+ow}{in} \PY{n}{classes}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{category} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{... }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{flush}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+             \PY{n}{SVC\PYZus{}trained\PYZus{}pipelines}\PY{p}{[}\PY{n}{category}\PY{p}{]} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                         \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{stop\PYZus{}words}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                         \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneVsRestClassifier}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{SVC\PYZus{}trained\PYZus{}pipelines}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{movie\PYZus{}dataframe}\PY{o}{.}\PY{n}{Lines}\PY{p}{,} \PY{n}{movie\PYZus{}dataframe}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training done}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training model: comedy{\ldots} romance{\ldots} adventure{\ldots} biography{\ldots} drama{\ldots} history{\ldots} action{\ldots} crime{\ldots} thriller{\ldots} mystery{\ldots} sci-fi{\ldots} fantasy{\ldots} horror{\ldots} music{\ldots} western{\ldots} war{\ldots} adult{\ldots} musical{\ldots} animation{\ldots} sport{\ldots} family{\ldots} short{\ldots} film-noir{\ldots} documentary{\ldots} Training done
+
+    \end{Verbatim}
+
+    \hypertarget{predict-the-genre-according-to-the-input}{%
+\subsection{Predict the genre according to the
+input:}\label{predict-the-genre-according-to-the-input}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{scriptUrl}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{p}{:}
+             \PY{n}{h} \PY{o}{=} \PY{n}{html2text}\PY{o}{.}\PY{n}{HTML2Text}\PY{p}{(}\PY{p}{)}
+             \PY{n}{h}\PY{o}{.}\PY{n}{ignore\PYZus{}links} \PY{o}{=} \PY{k+kc}{True}
+             \PY{n}{response} \PY{o}{=} \PY{n}{urlopen}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+             \PY{n}{html} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{response}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{h}\PY{o}{.}\PY{n}{handle}\PY{p}{(}\PY{n}{html}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{love}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} X\PYZus{}test = [scriptUrl(\PYZdq{}http://www.dailyscript.com/scripts/aboutmary.html\PYZdq{})]}
+         
+         \PY{n}{predicted} \PY{o}{=} \PY{k+kc}{False}
+         \PY{k}{for} \PY{n}{category} \PY{o+ow}{in} \PY{n}{classes}\PY{p}{:}
+             \PY{n}{prediction} \PY{o}{=} \PY{n}{SVC\PYZus{}trained\PYZus{}pipelines}\PY{p}{[}\PY{n}{category}\PY{p}{]}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+             \PY{k}{if} \PY{n}{prediction} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{predicted} \PY{o}{=} \PY{k+kc}{True}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The classifier predicts the given corpus to belong to a }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{category} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ movie.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{if} \PY{o+ow}{not} \PY{n}{predicted}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The classifier couldn}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{t provide a prediction for the given corpus.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The classifier predicts the given corpus to belong to a comedy movie.
+The classifier predicts the given corpus to belong to a romance movie.
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
